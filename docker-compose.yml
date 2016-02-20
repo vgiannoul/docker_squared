@@ -1,0 +1,14 @@
+app:
+  image: centurylink/drupal
+  links:
+    - db
+  ports:
+    - 80:80
+  restart: always
+
+db:
+  image: mysql
+  environment:
+    MYSQL_DATABASE: drupal
+    MYSQL_ROOT_PASSWORD: 123
+  restart: always
