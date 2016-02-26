@@ -53,3 +53,19 @@ mysql:
 #  ports:
 #    - "9200:9200"
 #    - "9300:9300"
+=======
+app:
+  image: centurylink/drupal
+  links:
+    - db
+  ports:
+    - 80:80
+  restart: always
+
+db:
+  image: mysql
+  environment:
+    MYSQL_DATABASE: drupal
+    MYSQL_ROOT_PASSWORD: 123
+  restart: always
+>>>>>>> 234a454f083cf5cb0bbb6f0ce3c05c594c2f6491
