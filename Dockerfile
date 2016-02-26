@@ -49,6 +49,7 @@ RUN apt-get update && apt-get install -y hhvm
 
 # Add configuration files
 COPY conf/nginx.conf /etc/nginx/
+COPY conf/drupal_upload_progress.conf /etc/nginx/drupal_upload_progress.conf
 COPY conf/supervisord.conf /etc/supervisor/conf.d/
 COPY conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
 
@@ -57,6 +58,24 @@ COPY conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
 ################################################################################
 
 VOLUME ["/var/www", "/etc/nginx/conf.d"]
+
+################################################################################
+#Install drupal tools
+################################################################################
+RUN /usr/bin/curl -sS https://getcomposer.org/installer | /usr/bin/php
+RUN /bin/mv composer.phar /usr/local/bin/composer
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install Composer and Drush
+RUN /usr/local/bin/composer self-update
+RUN /usr/local/bin/composer global require drush/drush:6.*
+RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
+
+################################################################################
+# www
+################################################################################
+
+
 
 ################################################################################
 # Ports
