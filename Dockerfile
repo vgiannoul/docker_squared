@@ -75,6 +75,7 @@ RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 # www
 ################################################################################
 
+RUN chown -R www-data:www-data /var/www/
 
 
 ################################################################################
